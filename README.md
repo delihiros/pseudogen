@@ -14,12 +14,19 @@ A tool to automatically generate pseudo-code from source code.
 
 ## Usage
 
+Download and extract corpus from annotated Django source code.
+
 ```
   $ mkdir data
   $ cd data
   $ wget -O- http://ahclab.naist.jp/en-django.tar.gz | tar zxvf -
+```
+
+Call extracted data as `all.code` and `all.anno`.
+
+```
   $ ./../train-pseudogen.sh -p all.code -e all.anno
-  $ ./..//run-pseudogen.sh -f tune/travatar.ini < test.reducedtree > test.out
+  $ ./../run-pseudogen.sh -f tune/travatar.ini < test.reducedtree > test.out
   $ ./../test-pseudogen.sh -r test.entok -h test.out
 ```
 
