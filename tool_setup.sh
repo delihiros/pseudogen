@@ -1,3 +1,5 @@
+#!/bin/bash -e
+
 # tool setup
 
 mkdir tools
@@ -8,7 +10,7 @@ cd tools
 
 git clone https://github.com/moses-smt/giza-pp.git
 cd giza-pp
-make
+make -j`nproc`
 cp GIZA++-v2/GIZA++ GIZA++-v2/*.out mkcls-v2/mkcls .
 cd ..
 
@@ -19,16 +21,7 @@ git clone https://github.com/neubig/travatar.git
 cd travatar
 autoreconf -i
 ./configure
-make
-
-cd ..
-
-##  install kenlm
-### required for making language model
-
-git clone https://github.com/kpu/kenlm.git
-cd kenlm
-./bjam -j4
+make -j`nproc`
 
 cd ..
 
@@ -39,18 +32,7 @@ git clone https://github.com/odashi/mteval.git
 cd mteval
 autoreconf -i
 ./configure
-make
-
-cd ..
-
-## install pialign
-### not really necessary, but can be used to make alignment
-
-git clone https://github.com/neubig/pialign.git
-cd pialign
-autoreconf -i
-./configure
-make
+make -j`nproc`
 
 cd ..
 
