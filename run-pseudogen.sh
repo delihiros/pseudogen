@@ -13,4 +13,13 @@ do
      esac
 done
 
-$BASE_DIR/tools/travatar/src/bin/travatar -config_file $CONFIG_FILE
+python $BASE_DIR/scripts/parse.py \
+    | python $BASE_DIR/scripts/head-insertion.py \
+    | python $BASE_DIR/scripts/simplify.py \
+    | $BASE_DIR/tools/travatar/src/bin/travatar \
+    -config_file $CONFIG_FILE \
+    -threads 1 \
+    -buffer false \
+    < /dev/stdin \
+    > /dev/stderr \
+    2> /dev/null

@@ -37,8 +37,8 @@ Call extracted data as `all.code` and `all.anno`.
 
 ```
   $ ./../train-pseudogen.sh -p all.code -e all.anno
-  $ ./../run-pseudogen.sh -f tune/travatar.ini < test.reducedtree > test.out
-  $ ./../test-pseudogen.sh -r test.entok -h test.out
+  $ ./../run-pseudogen.sh -f tune/travatar.ini
+  $ # input Python code you want to translate
 ```
 
 
