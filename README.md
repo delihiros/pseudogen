@@ -31,9 +31,8 @@ Download and extract corpus from annotated Django source code.
   $ mkdir data
   $ cd data
   $ wget -O- http://ahclab.naist.jp/pseudogen/en-django.tar.gz | tar zxvf -
+  $ mv en-django/all.* .
 ```
-
-Call extracted data as `all.code` and `all.anno`.
 
 ```
   $ ./../train-pseudogen.sh -p all.code -e all.anno
