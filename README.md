@@ -59,7 +59,7 @@ Download and extract corpus from annotated Django source code.
 ## Contributors
 
 + [Yusuke Oda](http://odaemon.com)
-+ [Hiroyuki Fudaba](http://delihiros.github.io)
++ [Hiroyuki Fudaba](http://delihiros.jp)
 + [Koichi Akabe](http://isw3.naist.jp/~koichi-a/)
 + [Graham Neubig](http://phontron.com/)
 + [Hideaki Hata](http://isw3.naist.jp/~hata/)
