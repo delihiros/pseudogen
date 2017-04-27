@@ -30,9 +30,11 @@ cd ..
 
 git clone https://github.com/odashi/mteval.git
 cd mteval
-autoreconf -i
-./configure
+mkdir build
+cd build
+cmake ..
 make -j`nproc`
+cd ..
 
 cd ..
 

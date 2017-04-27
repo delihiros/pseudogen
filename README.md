@@ -9,7 +9,7 @@ A tool to automatically generate pseudo-code from source code.
 ### Requirements
 
 ```
-  $ sudo apt-get install git libboost-all-dev autoconf automake autotools-dev libtool
+  $ sudo apt-get install git libboost-all-dev autoconf automake autotools-dev libtool zlib1g-dev cmake
   $ pip install nltk
 ```
 
