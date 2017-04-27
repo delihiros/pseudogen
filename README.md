@@ -38,6 +38,7 @@ Download and extract corpus from annotated Django source code.
   $ ./../train-pseudogen.sh -p all.code -e all.anno
   $ ./../run-pseudogen.sh -f tune/travatar.ini
   $ # input Python code you want to translate
+  $ # in some environments, you may need to press Ctrl+D few times in order to start tranlating
 ```
 
 
@@ -47,8 +48,6 @@ Download and extract corpus from annotated Django source code.
 
 + [Methods - IEEE/ACM ASE 2015](http://www.phontron.com/paper/oda15ase.pdf)
 + [Software - IEEE/ACM ASE 2015](http://www.phontron.com/paper/fudaba15asedemo.pdf)
-
-### Architecture
 
 ### Tools Used
 
