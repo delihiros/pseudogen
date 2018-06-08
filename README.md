@@ -6,6 +6,16 @@ A tool to automatically generate pseudo-code from source code.
 
 ## Installation
 
+### Using Docker
+
+docker is all you need.
+
+```
+  docker attach `docker run -itd delihiros/pseudogen`
+  /# cd pseudogen/data
+  /# ../run-pseudogen.sh -f tune/travatar.ini
+```
+
 ### Requirements
 
 Requires Python 3.5+

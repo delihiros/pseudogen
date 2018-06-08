@@ -13,9 +13,9 @@ do
      esac
 done
 
-python $BASE_DIR/scripts/parse.py \
-    | python $BASE_DIR/scripts/head-insertion.py \
-    | python $BASE_DIR/scripts/simplify.py \
+python3 $BASE_DIR/scripts/parse.py \
+    | python3 $BASE_DIR/scripts/head-insertion.py \
+    | python3 $BASE_DIR/scripts/simplify.py \
     | $BASE_DIR/tools/travatar/src/bin/travatar \
     -config_file $CONFIG_FILE \
     -threads 1 \
