@@ -8,9 +8,11 @@ A tool to automatically generate pseudo-code from source code.
 
 ### Requirements
 
+Requires Python 3.5+
+
 ```
-  sudo apt-get install git libboost-all-dev autoconf automake autotools-dev libtool zlib1g-dev cmake
-  pip install nltk
+  apt install git libboost-all-dev autoconf automake autotools-dev libtool zlib1g-dev cmake build-essential python3 python3-pip wget -y
+  pip3 install nltk
 ```
 
 *for Mac OS X users*:

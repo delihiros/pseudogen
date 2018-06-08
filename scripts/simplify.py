@@ -85,9 +85,12 @@ def encode(tree):
 
 def main():
     for l in sys.stdin:
-        tree = Tree.fromstring(l)
-        tree = simplify(tree)
-        print(encode(tree))
+        try:
+            tree = Tree.fromstring(l)
+            tree = simplify(tree)
+            print(encode(tree))
+        except Exception as e:
+            print()
         sys.stdout.flush()
 
 if __name__ == '__main__':

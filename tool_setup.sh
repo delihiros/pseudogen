@@ -19,10 +19,10 @@ cd ..
 
 git clone https://github.com/neubig/travatar.git
 cd travatar
+sed -i -e "36 s/.*/CPPFLAGS=\"\$CPPFLAGS -std=c++11\"/" configure.ac
 autoreconf -i
 ./configure
 make -j`nproc`
-
 cd ..
 
 ## install mteval

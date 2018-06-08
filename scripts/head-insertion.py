@@ -20,9 +20,12 @@ def encode(t):
 
 def main():
     for l in sys.stdin:
-        t = Tree.fromstring(l)
-        insert_head(t)
-        print(encode(t))
+        try:
+            t = Tree.fromstring(l)
+            insert_head(t)
+            print(encode(t))
+        except Exception as e:
+            print()
         sys.stdout.flush()
 
 

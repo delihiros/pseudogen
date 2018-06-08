@@ -68,26 +68,29 @@ def main():
     p_decorator = re.compile(r'^@.*')
 
     for l in sys.stdin:
-        l = l.strip()
-        if not l:
+        try:
+            l = l.strip()
+            if not l:
+                print()
+                sys.stdout.flush()
+                continue
+
+            if p_elif.match(l): l = 'if True: pass\n' + l
+            if p_else.match(l): l = 'if True: pass\n' + l
+
+            if p_try.match(l): l = l + 'pass\nexcept: pass'
+            elif p_except.match(l): l = 'try: pass\n' + l
+            elif p_finally.match(l): l = 'try: pass\n' + l
+            
+            if p_decorator.match(l): l = l + '\ndef dummy(): pass'
+            if l[-1] == ':': l = l + 'pass'
+
+            parse = ast.parse(l)
+            parse = parse.body[0]
+            dump = makestr(parse)
+            print(dump)
+        except Exception as e:
             print()
-            sys.stdout.flush()
-            continue
-
-        if p_elif.match(l): l = 'if True: pass\n' + l
-        if p_else.match(l): l = 'if True: pass\n' + l
-
-        if p_try.match(l): l = l + 'pass\nexcept: pass'
-        elif p_except.match(l): l = 'try: pass\n' + l
-        elif p_finally.match(l): l = 'try: pass\n' + l
-        
-        if p_decorator.match(l): l = l + '\ndef dummy(): pass'
-        if l[-1] == ':': l = l + 'pass'
-
-        parse = ast.parse(l)
-        parse = parse.body[0]
-        dump = makestr(parse)
-        print(dump)
         sys.stdout.flush()
 
 if __name__ == '__main__':

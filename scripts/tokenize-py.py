@@ -36,24 +36,27 @@ def main():
     p_decorator = re.compile(r'^@.*')
 
     for l in sys.stdin:
-        l = l.strip()
-        if not l:
+        try:
+            l = l.strip()
+            if not l:
+                print()
+                continue
+
+            if p_elif.match(l): l = 'if True: pass\n' + l
+            if p_else.match(l): l = 'if True: pass\n' + l
+
+            if p_try.match(l): l = l + 'pass\nexcept: pass'
+            elif p_except.match(l): l = 'try: pass\n' + l
+            elif p_finally.match(l): l = 'try: pass\n' + l
+            
+            if p_decorator.match(l): l = l + '\ndef dummy(): pass'
+            if l[-1] == ':': l = l + 'pass'
+            
+            toks = [escape(t[1]) for t in tokenize.generate_tokens(Readable(l).readline)]
+
+            print(' '.join(toks[:-1]))
+        except Exception as e:
             print()
-            continue
-
-        if p_elif.match(l): l = 'if True: pass\n' + l
-        if p_else.match(l): l = 'if True: pass\n' + l
-
-        if p_try.match(l): l = l + 'pass\nexcept: pass'
-        elif p_except.match(l): l = 'try: pass\n' + l
-        elif p_finally.match(l): l = 'try: pass\n' + l
-        
-        if p_decorator.match(l): l = l + '\ndef dummy(): pass'
-        if l[-1] == ':': l = l + 'pass'
-        
-        toks = [escape(t[1]) for t in tokenize.generate_tokens(Readable(l).readline)]
-
-        print(' '.join(toks[:-1]))
 
 if __name__ == '__main__':
     main()
