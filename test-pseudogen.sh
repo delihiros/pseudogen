@@ -19,4 +19,4 @@ if [ "$R_CHECK" != "TRUE" ] || [ "$H_CHECK" != "TRUE" ]; then
     exit 1
 fi
 
-$BASE_DIR/tools/mteval/src/bin/mteval-corpus -e BLEU RIBES -r $REF_FILE -h $HYP_FILE
+$BASE_DIR/tools/mteval/build/bin/mteval-corpus -e BLEU RIBES -r $REF_FILE -h $HYP_FILE
