@@ -20,6 +20,7 @@ cd ..
 git clone https://github.com/neubig/travatar.git
 cd travatar
 sed -i -e "36 s/.*/CPPFLAGS=\"\$CPPFLAGS -std=c++11\"/" configure.ac
+sed -i '/#include <iostream>/a #include <map>' src/include/travatar/output-collector.h
 autoreconf -i
 ./configure
 make -j`nproc`
@@ -30,6 +31,7 @@ cd ..
 
 git clone https://github.com/odashi/mteval.git
 cd mteval
+sed -i 's/ -Werror//' CMakeLists.txt
 mkdir build
 cd build
 cmake ..

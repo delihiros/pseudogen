@@ -37,7 +37,7 @@ TRAINING_LINE=`expr  $ALL_DATA_LINE - 2000`
 echo "making data ... " 1>&2
 shuf all.combined > combined.shuf
 cat combined.shuf | head -n $TRAINING_LINE > train.combined
-cat combined.shuf | head -n $TRAINING_LINE | tail -1000 > dev.combined
+tail -n 2000 combined.shuf | head -n 1000 > dev.combined
 cat combined.shuf | tail -n 1000 > test.combined
 
 for d in train dev test; do
@@ -46,10 +46,6 @@ for d in train dev test; do
     cut -f 3 $d.combined > $d.reducedtree
     python3 $BASE_DIR/scripts/extract_words.py word < $d.reducedtree > $d.reducedsurf
 done
-
-echo "making alignment ... " 1>&2
-mkdir align
-$BASE_DIR/tools/pialign/src/bin/pialign train.reducedsurf train.entok align/align.
 
 echo "making language model ... " 1>&2
 mkdir lm
