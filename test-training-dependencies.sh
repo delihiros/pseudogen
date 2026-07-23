@@ -14,6 +14,11 @@ grep -qF 'python3-nltk' "$BASE_DIR/Dockerfile" || {
     exit 1
 }
 
+grep -qxF 'ENV USER=root' "$BASE_DIR/Dockerfile" || {
+    echo "Dockerfile must set USER for GIZA++" >&2
+    exit 1
+}
+
 grep -qxF 'COPY . .' "$BASE_DIR/Dockerfile" || {
     echo "Dockerfile must copy the current checkout" >&2
     exit 1
