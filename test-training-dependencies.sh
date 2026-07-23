@@ -14,10 +14,15 @@ grep -qF 'python3-nltk' "$BASE_DIR/Dockerfile" || {
     exit 1
 }
 
-grep -qxF 'ENV USER=root' "$BASE_DIR/Dockerfile" || {
-    echo "Dockerfile must set USER for GIZA++" >&2
+grep -qxF 'RUN export USER=root && \' "$BASE_DIR/Dockerfile" || {
+    echo "Dockerfile must scope USER to GIZA++ training" >&2
     exit 1
 }
+
+if grep -qxF 'ENV USER=root' "$BASE_DIR/Dockerfile"; then
+    echo "Dockerfile must not persist USER in the final image" >&2
+    exit 1
+fi
 
 grep -qxF 'COPY . .' "$BASE_DIR/Dockerfile" || {
     echo "Dockerfile must copy the current checkout" >&2

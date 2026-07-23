@@ -1,7 +1,6 @@
 FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
-ENV USER=root
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     autoconf \
@@ -22,7 +21,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /pseudogen
 COPY . .
 
-RUN ./tool_setup.sh && \
+RUN export USER=root && \
+    ./tool_setup.sh && \
     mkdir data && \
     cd data && \
     wget -O en-django.tar.gz http://ahclab.naist.jp/pseudogen/en-django.tar.gz && \
