@@ -4,6 +4,31 @@ set -eu
 
 BASE_DIR="$(dirname "$(readlink -f "$0")")"
 
+grep -qxF 'FROM ubuntu:24.04' "$BASE_DIR/Dockerfile" || {
+    echo "Dockerfile must use Ubuntu 24.04" >&2
+    exit 1
+}
+
+grep -qF 'python3-nltk' "$BASE_DIR/Dockerfile" || {
+    echo "Dockerfile must install python3-nltk" >&2
+    exit 1
+}
+
+grep -qxF 'COPY . .' "$BASE_DIR/Dockerfile" || {
+    echo "Dockerfile must copy the current checkout" >&2
+    exit 1
+}
+
+if grep -qF 'git clone https://github.com/delihiros/pseudogen.git' "$BASE_DIR/Dockerfile"; then
+    echo "Dockerfile must not clone pseudogen" >&2
+    exit 1
+fi
+
+grep -qF 'd86f8e5dcc3411658bb50bf71a8ff0d9673e783769f9f46d99926fb3b515b7a6' "$BASE_DIR/Dockerfile" || {
+    echo "Dockerfile must verify the corpus checksum" >&2
+    exit 1
+}
+
 grep -q -- '-bin_dir \$BASE_DIR/tools/giza-pp' "$BASE_DIR/train-pseudogen.sh" || {
     echo "training must pass GIZA++ to Travatar for alignment" >&2
     exit 1

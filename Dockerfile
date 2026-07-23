@@ -1,14 +1,35 @@
-FROM ubuntu:16.04
+FROM ubuntu:24.04
 
-RUN apt update && \
-	apt install -y git libboost-all-dev autoconf automake autotools-dev libtool zlib1g-dev cmake build-essential python3 python3-pip wget && \
-	pip3 install nltk
+ENV DEBIAN_FRONTEND=noninteractive
 
-RUN git clone https://github.com/delihiros/pseudogen.git && \
-	cd pseudogen && \
-	./tool_setup.sh && \
-	mkdir data && \
-	cd data && \
-	wget -O- https://ahclab.naist.jp/pseudogen/en-django.tar.gz | tar zxvf - && \
-	mv en-django/all.* . && \
-	../train-pseudogen.sh -p all.code -e all.anno
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    autoconf \
+    automake \
+    autotools-dev \
+    build-essential \
+    ca-certificates \
+    cmake \
+    git \
+    libboost-all-dev \
+    libtool \
+    python3 \
+    python3-nltk \
+    wget \
+    zlib1g-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /pseudogen
+COPY . .
+
+RUN ./tool_setup.sh && \
+    mkdir data && \
+    cd data && \
+    wget -O en-django.tar.gz http://ahclab.naist.jp/pseudogen/en-django.tar.gz && \
+    echo 'd86f8e5dcc3411658bb50bf71a8ff0d9673e783769f9f46d99926fb3b515b7a6  en-django.tar.gz' | sha256sum -c - && \
+    tar -xzf en-django.tar.gz && \
+    mv en-django/all.* . && \
+    ../train-pseudogen.sh -p all.code -e all.anno && \
+    test -s tune/travatar.ini
+
+WORKDIR /pseudogen/data
+CMD ["../run-pseudogen.sh", "-f", "tune/travatar.ini"]
