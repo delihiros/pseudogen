@@ -29,6 +29,36 @@ grep -qF 'd86f8e5dcc3411658bb50bf71a8ff0d9673e783769f9f46d99926fb3b515b7a6' "$BA
     exit 1
 }
 
+grep -qF 'python3-nltk' "$BASE_DIR/README.md" || {
+    echo "README must install python3-nltk" >&2
+    exit 1
+}
+
+grep -qF 'd86f8e5dcc3411658bb50bf71a8ff0d9673e783769f9f46d99926fb3b515b7a6' "$BASE_DIR/README.md" || {
+    echo "README must verify the corpus checksum" >&2
+    exit 1
+}
+
+grep -qF 'docker build -t pseudogen .' "$BASE_DIR/README.md" || {
+    echo "README must document the local Docker build" >&2
+    exit 1
+}
+
+grep -qF 'docker run --rm -it pseudogen' "$BASE_DIR/README.md" || {
+    echo "README must document interactive Docker inference" >&2
+    exit 1
+}
+
+if grep -qF 'pip3 install nltk' "$BASE_DIR/README.md"; then
+    echo "README must not install NLTK with pip" >&2
+    exit 1
+fi
+
+if grep -qF 'docker attach' "$BASE_DIR/README.md"; then
+    echo "README must not use the old docker attach flow" >&2
+    exit 1
+fi
+
 grep -q -- '-bin_dir \$BASE_DIR/tools/giza-pp' "$BASE_DIR/train-pseudogen.sh" || {
     echo "training must pass GIZA++ to Travatar for alignment" >&2
     exit 1
